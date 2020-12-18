@@ -29,9 +29,7 @@ class _ListaProdutosState extends State<ListaProdutos> {
               color: Colors.white,
               child: ListTile(
                 title: Text(_produtos[index]['nome']),
-                subtitle: Text(_produtos[index]['quantidade'] +
-                    ' ' +
-                    _produtos[index]['unidade']),
+                subtitle: Text(_produtos[index]['quantidade']),
               ),
             ),
             actions: <Widget>[
@@ -51,16 +49,6 @@ class _ListaProdutosState extends State<ListaProdutos> {
                       ),
                     ),
                   );
-                  // showDialog(
-                  //   context: context,
-                  //   builder: (context) {
-                  //     return AlertDialog(
-                  //       title: Text(
-                  //         'Editar Produto',
-                  //       ),
-                  //     );
-                  //   },
-                  // );
                 },
               ),
             ],
@@ -70,6 +58,19 @@ class _ListaProdutosState extends State<ListaProdutos> {
                 color: Colors.red,
                 icon: Icons.delete,
                 onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                          'Excluir produto',
+                        ),
+                        content: Text(
+                          'Deseja excluir o produto ?',
+                        ),
+                      );
+                    },
+                  );
                   SqliteDB.connect().then((database) {
                     return database.rawDelete('DELETE FROM produtos WHERE id=?',
                         [_produtos[index]['id']]);
