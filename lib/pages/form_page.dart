@@ -36,6 +36,7 @@ class _FormPageState extends State<FormPage> {
                     decoration: InputDecoration(
                       labelText: 'Nome',
                     ),
+                    style: TextStyle(fontSize: 20),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
@@ -54,6 +55,7 @@ class _FormPageState extends State<FormPage> {
                     decoration: InputDecoration(
                       labelText: 'Quantidade',
                     ),
+                    style: TextStyle(fontSize: 20),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
@@ -69,7 +71,11 @@ class _FormPageState extends State<FormPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     RaisedButton(
-                      child: Text('Salvar'),
+                      child: Text(
+                        'Salvar',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      padding: EdgeInsets.all(15),
                       color: Colors.blue,
                       textColor: Colors.white,
                       onPressed: () {
@@ -82,7 +88,11 @@ class _FormPageState extends State<FormPage> {
                       },
                     ),
                     RaisedButton(
-                      child: Text('Limpar'),
+                      child: Text(
+                        'Limpar',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      padding: EdgeInsets.all(15),
                       color: Colors.blue,
                       textColor: Colors.white,
                       onPressed: () {

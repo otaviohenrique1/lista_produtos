@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import '../utils/connection.dart';
 import './form_page.dart';
 import './lista_produtos.dart';
+import './teste_lista.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -29,7 +30,28 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Busca',
+                icon: Icon(Icons.search),
+              ),
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          // RaisedButton(
+          //   child: Text('Teste 1'),
+          //   onPressed: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => TesteLista(),
+          //         ));
+          //   },
+          // ),
           ListaProdutos(
               produtos: _produtos,
               onChange: () {

@@ -68,15 +68,30 @@ class _ListaProdutosState extends State<ListaProdutos> {
                         content: Text(
                           'Deseja excluir o produto ?',
                         ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('Sim'),
+                            onPressed: () {
+                              SqliteDB.connect().then((database) {
+                                return database.rawDelete(
+                                    'DELETE FROM produtos WHERE id=?',
+                                    [_produtos[index]['id']]);
+                              }).then((data) {
+                                widget.onChange();
+                              });
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: Text('Não'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
                       );
                     },
                   );
-                  SqliteDB.connect().then((database) {
-                    return database.rawDelete('DELETE FROM produtos WHERE id=?',
-                        [_produtos[index]['id']]);
-                  }).then((data) {
-                    widget.onChange();
-                  });
                 },
               ),
             ],
