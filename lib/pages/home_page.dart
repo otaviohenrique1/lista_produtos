@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import '../utils/connection.dart';
 import './form_page.dart';
 import './lista_produtos.dart';
-import './teste_lista.dart';
+// import './teste_lista.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
