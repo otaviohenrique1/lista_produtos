@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lista_produtos/components/botao.dart';
 import 'package:lista_produtos/utils/connection.dart';
+import 'package:lista_produtos/components/botao.dart';
 import 'package:lista_produtos/components/campo.dart';
+// import 'package:lista_produtos/components/formulario.dart';
 
 // ignore: must_be_immutable
 class FormEditPage extends StatefulWidget {
@@ -91,6 +92,99 @@ class _FormEditPageState extends State<FormEditPage> {
   }
 
   /*
+  // Backup 03
+
+  @override
+  Widget build(BuildContext context) {
+    _formData['id'] = widget.initialData['id'];
+    _formData['nome'] = widget.initialData['nome'];
+    _formData['quantidade'] = widget.initialData['quantidade'];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Editar'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Container(
+          child: Formulario(
+            formKey: _formKey,
+            formData: _formData,
+            valorNome: widget.initialData['nome'],
+            valorQuantidade: widget.initialData['quantidade'],
+            onFunction: _updateData(),
+          ),
+        ),
+      ),
+    );
+  }
+  */
+
+  /*
+  // Backup 02
+
+  @override
+  Widget build(BuildContext context) {
+    _formData['id'] = widget.initialData['id'];
+    _formData['nome'] = widget.initialData['nome'];
+    _formData['quantidade'] = widget.initialData['quantidade'];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Editar'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Container(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Campo(
+                  label: 'Nome',
+                  mensagem: 'Campo vazio',
+                  onCalback: (value) {
+                    _formData['nome'] = value;
+                  },
+                  valor: widget.initialData['nome'],
+                ),
+                Campo(
+                  label: 'Quantidade',
+                  mensagem: 'Campo vazio',
+                  onCalback: (value) {
+                    _formData['quantidade'] = value;
+                  },
+                  valor: widget.initialData['quantidade'],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Botao(
+                      texto: 'Salvar',
+                      onCalback: () {
+                        if (_formKey.currentState.validate()) {
+                          _formKey.currentState.save();
+                          _updateData();
+                          _formKey.currentState.reset();
+                          Navigator.pop(context);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  */
+
+  /*
+  // Backup 01
+  
   @override
   Widget build(BuildContext context) {
     _formData['id'] = widget.initialData['id'];

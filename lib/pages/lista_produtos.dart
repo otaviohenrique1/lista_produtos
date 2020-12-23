@@ -23,13 +23,19 @@ class _ListaProdutosState extends State<ListaProdutos> {
       child: ListView.builder(
         itemCount: _produtos.length,
         itemBuilder: (context, index) {
+          var produtoNome = (_produtos[index]['nome'] == null)
+              ? ''
+              : _produtos[index]['nome'];
+          var produtoQuantidade = (_produtos[index]['quantidade'] == null)
+              ? ''
+              : _produtos[index]['quantidade'];
           return Slidable(
             actionPane: SlidableBehindActionPane(),
             child: Container(
               color: Colors.white,
               child: ListTile(
-                title: Text(_produtos[index]['nome']),
-                subtitle: Text(_produtos[index]['quantidade']),
+                title: Text(produtoNome),
+                subtitle: Text(produtoQuantidade),
               ),
             ),
             actions: <Widget>[

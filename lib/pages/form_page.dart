@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lista_produtos/utils/connection.dart';
 import 'package:lista_produtos/components/campo.dart';
 import 'package:lista_produtos/components/botao.dart';
+// import 'package:lista_produtos/components/formulario.dart';
 
 // ignore: must_be_immutable
 class FormPage extends StatefulWidget {
@@ -91,6 +92,93 @@ class _FormPageState extends State<FormPage> {
   }
 
   /*
+  // Backup 03
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cadastro'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Container(
+          child: Formulario(
+            formKey: _formKey,
+            formData: _formData,
+            onFunction: _insertData(),
+          ),
+        ),
+      ),
+    );
+  }
+  */
+
+  /*
+  // Backup 02
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cadastro'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Container(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Campo(
+                  label: 'Nome',
+                  mensagem: 'Campo vazio',
+                  onCalback: (value) {
+                    _formData['nome'] = value;
+                  },
+                ),
+                Campo(
+                  label: 'Quantidade',
+                  mensagem: 'Campo vazio',
+                  onCalback: (value) {
+                    _formData['quantidade'] = value;
+                  },
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Botao(
+                      texto: 'Salvar',
+                      onCalback: () {
+                        if (_formKey.currentState.validate()) {
+                          _formKey.currentState.save();
+                          _insertData();
+                          _formKey.currentState.reset();
+                          Navigator.pop(context);
+                        }
+                      },
+                    ),
+                    Botao(
+                      texto: 'Limpar',
+                      onCalback: () {
+                        _formKey.currentState.reset();
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  */
+
+  /*
+  // Backup 01
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
