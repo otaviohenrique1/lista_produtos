@@ -20,6 +20,7 @@ class _FormPageState extends State<FormPage> {
 
   @override
   Widget build(BuildContext context) {
+    String mensagemValidacao = 'Campo vazio';
     return Scaffold(
       appBar: AppBar(
         title: Text('Cadastro'),
@@ -34,14 +35,14 @@ class _FormPageState extends State<FormPage> {
               children: [
                 Campo(
                   label: 'Nome',
-                  mensagem: 'Campo vazio',
+                  mensagem: mensagemValidacao,
                   onCalback: (value) {
                     _formData['nome'] = value;
                   },
                 ),
                 Campo(
                   label: 'Quantidade',
-                  mensagem: 'Campo vazio',
+                  mensagem: mensagemValidacao,
                   onCalback: (value) {
                     _formData['quantidade'] = value;
                   },

@@ -6,8 +6,13 @@ class Campo extends StatefulWidget {
   final dynamic onCalback;
   final dynamic valor;
 
-  Campo({Key key, this.label, this.mensagem, this.onCalback, this.valor})
-      : super(key: key);
+  Campo({
+    Key key,
+    this.label,
+    this.mensagem,
+    this.onCalback,
+    this.valor,
+  }) : super(key: key);
 
   @override
   _CampoState createState() => _CampoState();

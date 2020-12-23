@@ -75,8 +75,9 @@ class _ListaProdutosState extends State<ListaProdutos> {
                           'Deseja excluir o produto ?',
                         ),
                         actions: <Widget>[
-                          TextButton(
+                          RaisedButton(
                             child: Text('Sim'),
+                            color: Colors.blue,
                             onPressed: () {
                               SqliteDB.connect().then((database) {
                                 return database.rawDelete(
@@ -88,12 +89,13 @@ class _ListaProdutosState extends State<ListaProdutos> {
                               Navigator.of(context).pop();
                             },
                           ),
-                          TextButton(
+                          RaisedButton(
                             child: Text('Não'),
+                            color: Colors.red,
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                          )
+                          ),
                         ],
                       );
                     },

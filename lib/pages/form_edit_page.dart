@@ -25,6 +25,7 @@ class _FormEditPageState extends State<FormEditPage> {
     _formData['nome'] = widget.initialData['nome'];
     _formData['quantidade'] = widget.initialData['quantidade'];
 
+    String mensagemValidacao = 'Campo vazio';
     return Scaffold(
       appBar: AppBar(
         title: Text('Editar'),
@@ -39,7 +40,7 @@ class _FormEditPageState extends State<FormEditPage> {
               children: [
                 Campo(
                   label: 'Nome',
-                  mensagem: 'Campo vazio',
+                  mensagem: mensagemValidacao,
                   onCalback: (value) {
                     _formData['nome'] = value;
                   },
@@ -47,7 +48,7 @@ class _FormEditPageState extends State<FormEditPage> {
                 ),
                 Campo(
                   label: 'Quantidade',
-                  mensagem: 'Campo vazio',
+                  mensagem: mensagemValidacao,
                   onCalback: (value) {
                     _formData['quantidade'] = value;
                   },
