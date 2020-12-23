@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lista_produtos/utils/connection.dart';
-import './form_edit_page.dart';
+import 'package:lista_produtos/pages/form_edit_page.dart';
 
 // ignore: must_be_immutable
 class ListaProdutos extends StatefulWidget {

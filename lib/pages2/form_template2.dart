@@ -1,101 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:lista_produtos/utils/connection.dart';
-import 'package:lista_produtos/components/campo.dart';
-import 'package:lista_produtos/components/botao.dart';
 
 // ignore: must_be_immutable
-class FormPage extends StatefulWidget {
-  var onSaved;
+class FormTemplate2 extends StatefulWidget {
+  Map initialData = {};
+  var onCallback;
+  String tituloAppBar;
 
-  FormPage({Key key, this.onSaved}) : super(key: key);
+  FormTemplate2({Key key, this.initialData, this.tituloAppBar, this.onCallback})
+      : super(key: key);
 
   @override
-  _FormPageState createState() => _FormPageState();
+  _FormTemplate2State createState() => _FormTemplate2State();
 }
 
-class _FormPageState extends State<FormPage> {
+class _FormTemplate2State extends State<FormTemplate2> {
   final _formKey = GlobalKey<FormState>();
   Map<String, dynamic> _formData = {};
 
   @override
   Widget build(BuildContext context) {
+    _formData['id'] = _formData['id'] == '' ? '' : widget.initialData['id'];
+    _formData['nome'] =
+        _formData['nome'] == '' ? '' : widget.initialData['nome'];
+    _formData['quantidade'] =
+        _formData['quantidade'] == '' ? '' : widget.initialData['quantidade'];
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Container(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Campo(
-                  label: 'Nome',
-                  mensagem: 'Campo vazio',
-                  onCalback: (value) {
-                    _formData['nome'] = value;
-                  },
-                ),
-                Campo(
-                  label: 'Quantidade',
-                  mensagem: 'Campo vazio',
-                  onCalback: (value) {
-                    _formData['quantidade'] = value;
-                  },
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Botao(
-                      texto: 'Salvar',
-                      onCalback: () {
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                          _insertData();
-                          _formKey.currentState.reset();
-                          Navigator.pop(context);
-                        }
-                      },
-                    ),
-                    Botao(
-                      texto: 'Limpar',
-                      onCalback: () {
-                        _formKey.currentState.reset();
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  _insertData() async {
-    var data = [
-      _formData['nome'],
-      _formData['quantidade'],
-    ];
-
-    var database = await SqliteDB.connect();
-    database.transaction((txn) async {
-      // ignore: unused_local_variable
-      int id = await txn.rawInsert(
-          'INSERT INTO produtos (nome, quantidade) VALUES (?,?)', data);
-      widget.onSaved();
-    });
-  }
-
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Cadastro'),
+        title: Text(widget.tituloAppBar),
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
@@ -108,11 +40,11 @@ class _FormPageState extends State<FormPage> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: TextFormField(
+                    initialValue: widget.initialData['nome'],
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Nome',
                     ),
-                    style: TextStyle(fontSize: 20),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
@@ -127,11 +59,11 @@ class _FormPageState extends State<FormPage> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: TextFormField(
+                    initialValue: widget.initialData['quantidade'],
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Quantidade',
                     ),
-                    style: TextStyle(fontSize: 20),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
@@ -157,7 +89,7 @@ class _FormPageState extends State<FormPage> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
-                          _insertData();
+                          widget.onCallback();
                           _formKey.currentState.reset();
                           Navigator.pop(context);
                         }
@@ -184,5 +116,4 @@ class _FormPageState extends State<FormPage> {
       ),
     );
   }
-  */
 }

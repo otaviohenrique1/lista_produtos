@@ -2,24 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:lista_produtos/utils/connection.dart';
 
 // ignore: must_be_immutable
-class FormPage extends StatefulWidget {
-  var onSaved;
+class FormEditPage1 extends StatefulWidget {
+  Map initialData = {};
+  var onChange;
 
-  FormPage({Key key, this.onSaved}) : super(key: key);
+  FormEditPage1({Key key, this.initialData, this.onChange}) : super(key: key);
 
   @override
-  _FormPageState createState() => _FormPageState();
+  _FormEditPage1State createState() => _FormEditPage1State();
 }
 
-class _FormPageState extends State<FormPage> {
+class _FormEditPage1State extends State<FormEditPage1> {
   final _formKey = GlobalKey<FormState>();
   Map<String, dynamic> _formData = {};
 
   @override
   Widget build(BuildContext context) {
+    _formData['id'] = widget.initialData['id'];
+    _formData['nome'] = widget.initialData['nome'];
+    _formData['quantidade'] = widget.initialData['quantidade'];
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro'),
+        title: Text('Editar'),
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
@@ -32,11 +37,11 @@ class _FormPageState extends State<FormPage> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: TextFormField(
+                    initialValue: widget.initialData['nome'],
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Nome',
                     ),
-                    style: TextStyle(fontSize: 20),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
@@ -51,11 +56,11 @@ class _FormPageState extends State<FormPage> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: TextFormField(
+                    initialValue: widget.initialData['quantidade'],
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Quantidade',
                     ),
-                    style: TextStyle(fontSize: 20),
                     // ignore: missing_return
                     validator: (value) {
                       if (value.isEmpty) {
@@ -71,32 +76,16 @@ class _FormPageState extends State<FormPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     RaisedButton(
-                      child: Text(
-                        'Salvar',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      padding: EdgeInsets.all(15),
+                      child: Text('Salvar'),
                       color: Colors.blue,
                       textColor: Colors.white,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
-                          _insertData();
+                          _updateData();
                           _formKey.currentState.reset();
                           Navigator.pop(context);
                         }
-                      },
-                    ),
-                    RaisedButton(
-                      child: Text(
-                        'Limpar',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      padding: EdgeInsets.all(15),
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        _formKey.currentState.reset();
                       },
                     ),
                   ],
@@ -109,18 +98,17 @@ class _FormPageState extends State<FormPage> {
     );
   }
 
-  _insertData() async {
+  _updateData() async {
     var data = [
       _formData['nome'],
       _formData['quantidade'],
+      _formData['id'],
     ];
 
     var database = await SqliteDB.connect();
-    database.transaction((txn) async {
-      // ignore: unused_local_variable
-      int id = await txn.rawInsert(
-          'INSERT INTO produtos (nome, quantidade) VALUES (?,?)', data);
-      widget.onSaved();
-    });
+    await database.rawUpdate(
+        'UPDATE produtos SET nome=?, quantidade=? WHERE id=?', data);
+
+    widget.onChange();
   }
 }
