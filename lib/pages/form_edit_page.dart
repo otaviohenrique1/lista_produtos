@@ -54,15 +54,15 @@ class _FormEditPageState extends State<FormEditPage> {
                   valor: widget.initialData['quantidade'],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Botao(
                       texto: 'Salvar',
+                      cor: Colors.blue,
                       onCalback: () {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
                           _updateData();
-                          _formKey.currentState.reset();
                           Navigator.pop(context);
                         }
                       },
