@@ -30,6 +30,81 @@ class _FormEditPageState extends State<FormEditPage> {
       appBar: AppBar(
         title: Text('Editar'),
       ),
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return Container(
+            padding: EdgeInsets.all(20),
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                children: [
+                  Campo(
+                    label: 'Nome',
+                    mensagem: mensagemValidacao,
+                    onCalback: (value) {
+                      _formData['nome'] = value;
+                    },
+                    valor: widget.initialData['nome'],
+                  ),
+                  Campo(
+                    label: 'Quantidade',
+                    mensagem: mensagemValidacao,
+                    onCalback: (value) {
+                      _formData['quantidade'] = value;
+                    },
+                    valor: widget.initialData['quantidade'],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Botao(
+                        texto: 'Salvar',
+                        cor: Colors.blue,
+                        onCalback: () {
+                          if (_formKey.currentState.validate()) {
+                            _formKey.currentState.save();
+                            _updateData();
+                            Navigator.pop(context);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  _updateData() async {
+    var data = [
+      _formData['nome'],
+      _formData['quantidade'],
+      _formData['id'],
+    ];
+
+    var database = await SqliteDB.connect();
+    await database.rawUpdate(
+        'UPDATE produtos SET nome=?, quantidade=? WHERE id=?', data);
+
+    widget.onChange();
+  }
+
+  /*
+  @override
+  Widget build(BuildContext context) {
+    _formData['id'] = widget.initialData['id'];
+    _formData['nome'] = widget.initialData['nome'];
+    _formData['quantidade'] = widget.initialData['quantidade'];
+
+    String mensagemValidacao = 'Campo vazio';
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Editar'),
+      ),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Container(
@@ -77,20 +152,7 @@ class _FormEditPageState extends State<FormEditPage> {
       ),
     );
   }
-
-  _updateData() async {
-    var data = [
-      _formData['nome'],
-      _formData['quantidade'],
-      _formData['id'],
-    ];
-
-    var database = await SqliteDB.connect();
-    await database.rawUpdate(
-        'UPDATE produtos SET nome=?, quantidade=? WHERE id=?', data);
-
-    widget.onChange();
-  }
+  */
 
   /*
   // Backup 03
