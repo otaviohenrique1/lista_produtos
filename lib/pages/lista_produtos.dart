@@ -19,6 +19,23 @@ class _ListaProdutosState extends State<ListaProdutos> {
   Widget build(BuildContext context) {
     List _produtos = widget.produtos;
 
+    if (_produtos.length == 0) {
+      return Container(
+        padding: EdgeInsets.all(30),
+        child: Center(
+          child: Column(
+            children: [
+              Text(
+                'Lista vazia',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline3,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Expanded(
       child: ListView.builder(
         itemCount: _produtos.length,
